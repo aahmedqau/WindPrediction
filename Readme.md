@@ -1,88 +1,88 @@
-# 如何使用
+# How to use
 
-## 1.确保python环境正常
+## 1. Ensure that the Python environment is normal
 
-本项目运行时python版本为3.10.11
+The Python version for this project is 3.10.11
 
-软件包matplotlib、meteostat、pandas、sklearn、numpy、torch
+Packages matplotlib, meteostat, pandas, sklearn, numpy, torch
 
->  ❗numpy版本请勿使用2.x及以上版本、本项目运行时为numpy1.26.1。
+> ❗Please do not use numpy version 2.x or above. The version for this project is numpy1.26.1.
 >
-> sklearn的安装需要安装scikit-learn而不是sklearn本身
+> To install sklearn, you need to install scikit-learn instead of sklearn itself
 
-## 2.目录介绍
+## 2. Directory introduction
 
-main.py - 主程序
-Data       - 数据文件夹
-huiTu.py - 绘图程序，在不调用主程序的情况下绘制数据折线图方便观察
-fileConversion.py - 文件转换程序，从原始数据中提取一些数据保存至新文件
-yuan.py  - 项目源码，方便查验
+main.py - main program
+Data - data folder
+huiTu.py - drawing program, draw data line chart without calling the main program for easy observation
+fileConversion.py - file conversion program, extract some data from the original data and save it to a new file
+yuan.py - project source code, easy to check
 
-> 你只需要有main.py 和Data就能开始运行，各个python文件间没有相互调用
+> You only need main.py and Data to start running, and there is no mutual call between the various python files
 
-## 3.修改参数
+## 3. Modify parameters
 
-#### 3.1修改35行
+#### 3.1 Modify line 35
 
 ```python
-# 我们的数据读取方式
+# How we read data
 data = pd.read_csv('./Data/Five_year_d_12_data.csv')
 ```
 
-将`./Data/Five_year_d_12_data.csv`替换你的数据文件
+Replace `./Data/Five_year_d_12_data.csv` with your data file
 
-#### 3.2修改39行
+#### 3.2 Modify line 39
 
 ```python
 df['tavg'] = data['A']
 ```
 
-将 `data['A']` A更换为你需要的数据列名,它通常是数据文件中的第一行
+Replace `data['A']` A with the name of the data column you need, which is usually the first line in the data file
 
-> 本程序一次只能选择一个数据列进行训练
+> This program can only select one data column for training at a time
 
-#### 3.3修改366行
+#### 3.3 Modify line 366
 
 ```python
-# 下行代码中注意修改all_data值为数据量总数
+# In the following code, please note that the value of all_data should be changed to the total amount of data
 all_data = 1826
 ```
 
-将`all_data`值改为数据文件的数据行数(如果有表头要-1,只计算数据行)
+Change the value of `all_data` to the number of data rows in the data file (if there is a table header, it should be -1, and only the data rows are counted)
 
-#### 3.4修改344行
+#### 3.4 Modify line 344
 
 ```python
-# df_max与df_min值异常，无法获取。手动重写
+# The values ​​of df_max and df_min are abnormal and cannot be obtained. Manual rewrite
 df_max = 2.21
 df_min = 1.06
 ```
 
-对于不同的数据,该值通常不同,按如下更改或自行重设均可
+For different data, this value is usually different. You can change it as follows or reset it yourself
 
 ```python
-# 对于本数据预测年数据时使用下值
+# For this data, use the lower value when predicting annual data
 df_max = 2.8
 df_min = 1.5
-# 预测日数据A时使用下值(大概是这个)
+# Use the lower value when predicting daily data A (probably this)
 df_max = 2.2
 df_min = 1.0
-# 预测日数据B时使用下值
+# Use the lower value when predicting daily data B
 df_max = 2.81
 df_min = 1.66
 ```
 
-#### 3.5其他修改
+#### 3.5 Other changes
 
-> 不改也行
+> No change is required
 
-157行可以自定义批量大小
+157 lines can customize the batch size
 
 ```python
-batch_size = 64#批量大小，算力越强，可以设置越大，可自定义 ，常见的批量大小通常在32到256之间
+batch_size = 64#Batch size, the stronger the computing power, the larger it can be set, customizable , the common batch size is usually between 32 and 256
 ```
 
-271行可以更改训练轮数
+Line 271 can change the number of training rounds
 
 ```python
 num_epochs = 150
@@ -90,9 +90,9 @@ num_epochs = 150
 
 .....
 
-## 4.运行
+## 4. Run
 
-运行main.py文件,正常运行会输出三幅图(关闭一个出来下一个)
+Run the main.py file, and the normal operation will output three pictures (close one and the next one will appear)
 
 ![image-20240725141038513](Readme/1.png)
 
