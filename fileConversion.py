@@ -1,19 +1,19 @@
-#  文件转换，提取每天的一个小时成为新的文件
+# File conversion: extract one hour from each day and save as a new file
 
 import pandas as pd
 
-# 读取CSV文件
+# Read the CSV file
 data = pd.read_csv('./Data/Five_year_h_data.csv')
 
-# 定义日期解析函数
+# Define a function to parse the date
 def parse_date(date_str):
     return pd.to_datetime(date_str, format='%d/%m/%Y %H').strftime('%Y-%m-%d')
 
-# 修改日期格式
+# Modify the date format
 data['date'] = data['date'].apply(parse_date)
 
-# 每隔24行取一行
+# Select one row every 24 rows (i.e., one hour per day)
 filtered_data = data.iloc[12::24, :]
 
-# 将结果存入新的CSV文件
+# Save the result to a new CSV file
 filtered_data.to_csv('./Data/Five_year_d_12_data.csv', index=False)
